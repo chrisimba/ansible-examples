@@ -1,8 +1,6 @@
 graph network {
   "PRHMMN005-PE-03.isp.arvig.net" [shape=record,
     label="<node>PRHMMN005-PE-03.isp.arvig.net|{ <Gi0/0/10>Gi0/0/10|<TenGi0/0/13>TenGi0/0/13 }"];
-  "Unknown" [shape=record,
-    label="<node>Unknown|{  }"];
   "PRHMMN005-PE-03.isp.arvig.net":"Gi0/0/10" -- "PRHMMN005-PE-01.isp.arvig.net":"Gi0/0/0/23";
   "PRHMMN005-PE-03.isp.arvig.net":"TenGi0/0/13" -- "PRHMMN006-SW-01":"eth-0-32";
 }
