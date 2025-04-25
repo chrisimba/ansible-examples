@@ -1,15 +1,23 @@
 ---
-- hosts: all
+- name: trace lldp
+  gather_facts: false
+  hosts: 
+    - PRHMMN005-PE-03
+    - PRHMMN006-SW-01
+  vars:
+    ansible_connection: network_cli
   tasks:
-  - name: Get LLDP neighbors
-    napalm_get_facts:
-      hostname: "{{ansible_host|default(inventory_hostname)}}"
-      username: "{{ansible_user}}"
-      password: "{{ansible_ssh_pass}}"
-      dev_os: "{{ansible_os}}"
-      optional_args:
-        port: "{{api_port|default(ansible_port)|default(22)}}"
-      filter:
-      - lldp_neighbors
+    - name: get facts from device
+      napalm_get_facts:
+        dev_os: "ios"
+        filter: 
+          - facts
+          - lldp_neighbors
+      register: result
+    
+    - name: print data
+      debug: var=result
 
-  - debug: var=hostvars[inventory_hostname]
+    - name: Generate graph description file
+      template: src={{template|default('graph.j2')}} dest=./{{output|default('network.dot')}}
+      run_once: true
